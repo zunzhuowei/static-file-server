@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>Video.js | HTML5 Video Player</title>
+    <link href="/css/video-js.css" rel="stylesheet">
+
+    <script src="/js/video.js" type="text/javascript"></script>
+    <script src="js/videojs-contrib-hls.min.js" type="text/javascript"></script>
+
+    <!--<script src="js/video-js.swf">
+        // /*<![CDATA[*/
+        // videojsswf = /*[[@{/js/video-js.swf}]]*/ '';
+        // /*]]>*/
+        console.log(videojsswf);
+        console.log("=======================");
+        videojs.options.flash.swf = videojsswf;
+    </script>-->
+</head>
+<body>
+
+<video id="live-stream" class="video-js vjs-default-skin vjs-big-play-centered"
+       controls autoplay preload="auto"
+       poster="videodemo.png" poster="/img/videodemo.png"
+       data-setup='{"example_option":true}'>
+
+    <source src="[[$videoSource]]"
+            type="application/x-mpegURL">
+
+</video>
+
+
+<script>
+    var options = {
+        width: 1080,
+        height: 520
+    };
+
+    var player = videojs('live-stream', options);
+
+    player.on(['loadstart', 'play', 'playing', 'firstplay', 'pause', 'ended', 'adplay', 'adplaying', 'adfirstplay', 'adpause', 'adended', 'contentplay', 'contentplaying', 'contentfirstplay', 'contentpause', 'contentended', 'contentupdate'], function (e) {
+        console.warn('VIDEOJS player event: ', e.type);
+    });
+
+</script>
+
+
+</body>
+</html>

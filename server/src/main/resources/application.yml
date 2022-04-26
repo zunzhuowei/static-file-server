@@ -1,0 +1,21 @@
+serverPort: 8080
+filePath: "H:/disk/"
+
+server:
+  port: 8081
+spring:
+  # 模板引擎
+  thymeleaf:
+    mode: HTML
+    encoding: utf-8
+    # 禁用缓存
+    cache: false
+
+com:
+  game:
+    qs:
+      # ffmpeg 安装目录
+      ffmpegPath: "D:\\ffmpeg-20191223-5b42d33-win64-static\\bin\\"
+      # ts 切片文件根路径
+      sliceFilePath: "D:\\temp\\"
+
