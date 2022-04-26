@@ -10,9 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-
         <module>server</module>
-        <module>vod-player</module>
     </modules>
 
     <properties>
