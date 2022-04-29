@@ -1,5 +1,6 @@
 package com.hbs.server.statics;
 
+import com.hbs.server.utils.YamlUtils;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
@@ -24,18 +25,19 @@ public final class HttpStaticFileServer {
     static final boolean SSL = System.getProperty("ssl") != null;
     //static final int PORT = Integer.parseInt(System.getProperty("port", SSL? "8443" : "8080"));
     static String filePath = SystemPropertyUtil.get("user.dir");
+    static boolean enableHlsServer = false;
 
 
     public static void main(String[] args) throws Exception {
-        ClassPathResource classPathResource = new ClassPathResource("application.yml");
-        YamlPropertySourceLoader yamlPropertySourceLoader = new YamlPropertySourceLoader();
-        final List<PropertySource<?>> load = yamlPropertySourceLoader.load("pro", classPathResource);
-        String fp = load.get(0).getProperty("filePath").toString();
+        String fp = YamlUtils.getProperty("filePath");
+        String enableHlsServerStr = YamlUtils.getProperty("enableHlsServer");
         if (StringUtils.hasLength(fp)) {
             filePath = fp;
         }
-        System.out.println("filePath = " + filePath);
-        int PORT = Integer.parseInt(load.get(0).getProperty("serverPort").toString());
+        if (StringUtils.hasLength(enableHlsServerStr)) {
+            enableHlsServer = Boolean.parseBoolean(enableHlsServerStr);
+        }
+        int PORT = Integer.parseInt(YamlUtils.getProperty("serverPort"));
 
         // Configure SSL.
         final SslContext sslCtx;

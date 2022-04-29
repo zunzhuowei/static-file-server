@@ -6,6 +6,7 @@ import com.hbs.server.service.IVideoProvider;
 import com.hbs.server.utils.Md5Utils;
 import com.hbs.server.utils.StaticContent;
 import com.hbs.server.utils.ThymeleafUtils;
+import com.hbs.server.utils.YamlUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
@@ -157,7 +158,8 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
         }
 
 
-        /*if (StringUtils.endsWithIgnoreCase(path, ".mp4")) {
+        if (HttpStaticFileServer.enableHlsServer
+                && StringUtils.endsWithIgnoreCase(path, ".mp4")) {
             String encode = Md5Utils.hash(path);
             IVideoProvider videoProvider = FileServer.context.getBean(IVideoProvider.class);
             final boolean b = videoProvider.existSplitTs(encode);
@@ -171,7 +173,7 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
             }
             String template = StaticContent.getTemplate("hls2.html");
             String html = StringUtils.replace(template, "[[${uuid}]]", "\"" + encode + "\"");
-            html = StringUtils.replace(html, "[[${location.port}]]", "\"8081\"");
+            html = StringUtils.replace(html, "[[${location.port}]]", "\"" + YamlUtils.getProperty("server.port") + "\"");
             sendHtml(ctx, html);
 
             //String template = StaticContent.getTemplate("hls3.html");
@@ -179,7 +181,7 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
             //String html = StringUtils.replace(template, "[[$videoSource]]", videoSource);
             //sendHtml(ctx, html);
             return;
-        }*/
+        }
 
         // Cache Validation
         String ifModifiedSince = request.headers().get(HttpHeaderNames.IF_MODIFIED_SINCE);

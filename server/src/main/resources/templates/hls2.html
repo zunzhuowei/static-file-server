@@ -10,7 +10,7 @@
 
 </style>
 <!--<input type="text" id="m3u8"/>-->
-<video id="video" controls onvolumechange="myFunction()"></video>
+<video id="video" style="width: 720px;" controls onvolumechange="myFunction()"></video>
 
 <script type="text/javascript" th:inline="javascript">
 
@@ -24,7 +24,7 @@
 
     //let m3u8 = document.getElementById("m3u8");
     //m3u8.value = loadSrc;
-    alert(loadSrc);
+    //alert(loadSrc);
 
     var config = {
         autoStartLoad: true,

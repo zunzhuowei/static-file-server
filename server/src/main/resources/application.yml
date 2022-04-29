@@ -1,7 +1,12 @@
+#静态服务器端口号
 serverPort: 8080
+#静态文件存储目录
 filePath: "H:/disk/"
+#是否启用Hls服务
+enableHlsServer: true
 
 server:
+  #hls服务端口号
   port: 8081
 spring:
   # 模板引擎
@@ -12,10 +17,9 @@ spring:
     cache: false
 
 com:
-  game:
-    qs:
-      # ffmpeg 安装目录
-      ffmpegPath: "D:\\ffmpeg-20191223-5b42d33-win64-static\\bin\\"
-      # ts 切片文件根路径
-      sliceFilePath: "D:\\temp\\"
+  hbs:
+    # ffmpeg 安装目录
+    ffmpegPath: "D:\\ffmpeg-20191223-5b42d33-win64-static\\bin\\"
+    # mp4文件切片成ts； 切片文件保存根路径
+    sliceFilePath: "D:\\temp\\"
 
